@@ -1,0 +1,21 @@
+{
+  "name": "inoguez-v3",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "workspaces": [
+    "apps/**"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "start": "turbo start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.14"
+  },
+  "packageManager": "^npm@10.8.2"
+}
