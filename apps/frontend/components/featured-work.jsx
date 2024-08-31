@@ -1,8 +1,7 @@
-import { ApiWorkWork } from '@inoguez/strapi-types/ContentTypes';
 import Link from 'next/link';
 import Status from './status';
 
-export default function FeaturedWork({ item }: { item: ApiWorkWork }) {
+export default function FeaturedWork({ item }) {
   console.log(item);
   return (
     <div className='relative p-4 border-[1px] border-foreground  grid rounded-3xl gap-4 text-left'>

@@ -73,7 +73,9 @@ export default function Cta({
         variant='bordered'
       >
         {(item) => (
-          <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>
+          <AutocompleteItem key={String(item.value)}>
+            {String(item.label)}
+          </AutocompleteItem>
         )}
       </Autocomplete>
     </div>

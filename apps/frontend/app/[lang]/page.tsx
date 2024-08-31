@@ -104,7 +104,7 @@ export default async function Home({
             {competitiveEdge.map((e) => (
               <CompetitiveEdge
                 competitiveEdge={e}
-                key={e.attributes.title.toString()}
+                key={String(e.attributes.title)}
               />
             ))}
           </div>
