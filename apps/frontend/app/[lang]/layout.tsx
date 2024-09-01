@@ -49,7 +49,7 @@ export default async function RootLayout({
           >
             <Header navigationInfo={navigationInfo} />
 
-            <div className='p-6'>
+            <div className='p-6 pt-28 md:pt-32'>
               <Providers data-scroll data-scroll-speed>
                 {children}
               </Providers>
