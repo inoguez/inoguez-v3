@@ -75,7 +75,7 @@ export default async function Home({
   return (
     <main className='max-w-xl md:max-w-5xl mx-auto '>
       <div className='flex flex-col items-center gap-6 text-center'>
-        <div className='flex flex-col items-center gap-8 text-center my-28 md:my-32'>
+        <div className='flex flex-col items-center gap-8 text-center '>
           <div className='flex flex-col gap-4 '>
             <h1
               className='font-bold text-4xl md:text-8xl text-balance'

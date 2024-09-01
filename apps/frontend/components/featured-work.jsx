@@ -19,7 +19,9 @@ export default function FeaturedWork({ item }) {
       <Status status={String(item.attributes.status)} />
 
       {/* //Tecnologias */}
-      <span>{String(item.attributes.description)}</span>
+      <span className='text-foreground/70'>
+        {String(item.attributes.description)}
+      </span>
     </div>
   );
 }
