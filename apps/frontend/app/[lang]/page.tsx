@@ -79,41 +79,43 @@ export default async function Home({
           <div className='flex flex-col gap-4 '>
             <h1
               className='font-bold text-4xl md:text-8xl text-balance'
-              dangerouslySetInnerHTML={{ __html: layoutInfo.attributes.h1 }}
+              dangerouslySetInnerHTML={{
+                __html: layoutInfo?.attributes?.h1 ?? '<p></p>',
+              }}
             ></h1>
             <h2 className='font-light text-lg md:text-2xl text-balance text-foreground/70'>
-              {String(layoutInfo.attributes.h2)}
+              {String(layoutInfo?.attributes?.h2)}
             </h2>
           </div>
 
           <div className='flex gap-2 max-w-md items-center justify-center'>
             <Cta
               whatToBuild={whatToBuild}
-              label={String(layoutInfo.attributes.placeholderCtaInput)}
+              label={String(layoutInfo?.attributes?.placeholderCtaInput)}
             />
             <Button className='rounded-full p-6'>
-              {String(layoutInfo.attributes.ctaButtonText)}
+              {String(layoutInfo?.attributes?.ctaButtonText)}
             </Button>
           </div>
         </div>
         <div className='flex flex-col gap-4'>
           <h3 className='font-bold text-2xl'>
-            {String(layoutInfo.attributes.competitiveEdge)}
+            {String(layoutInfo?.attributes?.competitiveEdge)}
           </h3>
           <div className='grid  md:grid-cols-3 gap-8'>
-            {competitiveEdge.map((e) => (
+            {competitiveEdge?.map((e) => (
               <CompetitiveEdge
                 competitiveEdge={e}
-                key={String(e.attributes.title)}
+                key={String(e?.attributes?.title)}
               />
             ))}
           </div>
         </div>
         <h3 className='font-bold text-2xl'>
-          {String(layoutInfo.attributes.featuredWork)}
+          {String(layoutInfo?.attributes?.featuredWork)}
         </h3>
         <div className='grid md:grid-cols-3'>
-          {featuredWork.map((e, index) => (
+          {featuredWork?.map((e, index) => (
             <FeaturedWork item={e} key={index} />
           ))}
         </div>
@@ -122,11 +124,11 @@ export default async function Home({
           <h3
             className='font-bold text-2xl '
             dangerouslySetInnerHTML={{
-              __html: String(layoutInfo.attributes.h3Footer),
+              __html: String(layoutInfo?.attributes?.h3Footer),
             }}
           />
           <Button className='rounded-full p-5 w-full'>
-            {String(layoutInfo.attributes.ctaButtonFooterText)}
+            {String(layoutInfo?.attributes?.ctaButtonFooterText)}
           </Button>
         </div>
       </div>

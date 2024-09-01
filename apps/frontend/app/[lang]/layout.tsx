@@ -63,7 +63,7 @@ export default async function RootLayout({
               <nav className='flex-1 grid grid-cols-2 gap-2 font-light transition-colors duration-700'>
                 {navigationInfo?.map((item, index) => (
                   <Link href={'#'} key={index}>
-                    <span>{String(item.attributes?.title)}</span>
+                    <span>{String(item?.attributes?.title)}</span>
                   </Link>
                 ))}
               </nav>

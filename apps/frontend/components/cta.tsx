@@ -17,11 +17,13 @@ export default function Cta({
   console.log(whatToBuild);
 
   const reducedData = useMemo(() => {
-    return whatToBuild.map((item) => ({
-      label: item.attributes.label,
-      value: item.attributes.value,
+    return whatToBuild?.map((item) => ({
+      label: item?.attributes?.label,
+      value: item?.attributes?.value,
     }));
   }, [whatToBuild]);
+
+  if (!whatToBuild) return;
 
   return (
     <div className='flex w-full flex-wrap md:flex-nowrap gap-4'>
@@ -73,8 +75,8 @@ export default function Cta({
         variant='bordered'
       >
         {(item) => (
-          <AutocompleteItem key={String(item.value)}>
-            {String(item.label)}
+          <AutocompleteItem key={String(item?.value)}>
+            {item ? String(item?.label) : ''}
           </AutocompleteItem>
         )}
       </Autocomplete>
