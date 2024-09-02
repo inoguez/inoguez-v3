@@ -5,17 +5,27 @@ import {
   AutocompleteSection,
   AutocompleteItem,
 } from '@nextui-org/autocomplete';
-import { useMemo } from 'react';
+import { Button } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
 
 export default function Cta({
   label,
+  ctaButtonText,
   whatToBuild,
+  onValueChange,
+  value,
 }: {
   label: string;
+  ctaButtonText: String;
   whatToBuild: ApiWhatToBuildWhatToBuild[];
+  onValueChange?: (value: string) => void;
+  value?: string;
 }) {
+  const [valor, setValor] = useState('');
+  console.log(valor);
   console.log(whatToBuild);
-
+  const router = useRouter();
   const reducedData = useMemo(() => {
     return whatToBuild?.map((item) => ({
       label: item?.attributes?.label,
@@ -24,12 +34,21 @@ export default function Cta({
   }, [whatToBuild]);
 
   if (!whatToBuild) return;
+  function handleClick() {
+    router.push(`/contact?service=${valor}`);
+  }
 
   return (
     <div className='flex w-full flex-wrap md:flex-nowrap gap-4'>
       <Autocomplete
         label={label}
         defaultItems={reducedData}
+        onSelectionChange={(e) => {
+          console.log(e);
+          setValor(String(e));
+          onValueChange && onValueChange(String(e));
+        }}
+        onValueChange={(e) => {}}
         // placeholder='Search an animal'
         defaultSelectedKey='cat'
         classNames={{
@@ -80,6 +99,9 @@ export default function Cta({
           </AutocompleteItem>
         )}
       </Autocomplete>
+      <Button onClick={handleClick} className='rounded-full p-6'>
+        {ctaButtonText}
+      </Button>
     </div>
   );
 }

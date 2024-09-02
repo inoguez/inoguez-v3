@@ -911,14 +911,41 @@ export interface ApiContactContact extends Schema.SingleType {
     singularName: 'contact';
     pluralName: 'contacts';
     displayName: 'Contact';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.String;
-    submitText: Attribute.String;
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    submitText: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    contactImage: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -934,6 +961,12 @@ export interface ApiContactContact extends Schema.SingleType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::contact.contact',
+      'oneToMany',
+      'api::contact.contact'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1067,6 +1100,40 @@ export interface ApiNavigationNavigation extends Schema.CollectionType {
       'api::navigation.navigation'
     >;
     locale: Attribute.String;
+  };
+}
+
+export interface ApiProspectProspect extends Schema.CollectionType {
+  collectionName: 'prospects';
+  info: {
+    singularName: 'prospect';
+    pluralName: 'prospects';
+    displayName: 'Prospect';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    lastName: Attribute.String;
+    email: Attribute.String;
+    description: Attribute.Text;
+    typeService: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::prospect.prospect',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::prospect.prospect',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -1323,6 +1390,7 @@ declare module '@strapi/types' {
       'api::contact.contact': ApiContactContact;
       'api::home.home': ApiHomeHome;
       'api::navigation.navigation': ApiNavigationNavigation;
+      'api::prospect.prospect': ApiProspectProspect;
       'api::tag.tag': ApiTagTag;
       'api::tecnology.tecnology': ApiTecnologyTecnology;
       'api::what-to-build.what-to-build': ApiWhatToBuildWhatToBuild;

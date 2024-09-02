@@ -69,6 +69,7 @@ export default async function Home({
   const competitiveEdge = await getCompetitiveEdges(params.lang);
   const featuredWork = await getFeaturedWork(params.lang);
   const whatToBuild = await getWhatToBuild(params.lang);
+  console.log(layoutInfo);
   console.log(whatToBuild);
   console.log(featuredWork);
   console.log(competitiveEdge);
@@ -92,10 +93,8 @@ export default async function Home({
             <Cta
               whatToBuild={whatToBuild}
               label={String(layoutInfo?.attributes?.placeholderCtaInput)}
+              ctaButtonText={String(layoutInfo?.attributes?.ctaButtonText)}
             />
-            <Button className='rounded-full p-6'>
-              {String(layoutInfo?.attributes?.ctaButtonText)}
-            </Button>
           </div>
         </div>
         <div className='flex flex-col gap-4'>

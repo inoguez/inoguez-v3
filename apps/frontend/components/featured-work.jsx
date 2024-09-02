@@ -8,7 +8,7 @@ export default function FeaturedWork({ item }) {
       <img
         className='sticky rounded-2xl '
         src={
-          process.env.STRAPI_URL +
+          process.env.NEXT_PUBLIC_STRAPI_URL +
           item.attributes.showcase.data?.[0].attributes.url
         }
         alt=''
