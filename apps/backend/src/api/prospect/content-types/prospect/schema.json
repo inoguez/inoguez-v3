@@ -4,7 +4,8 @@
   "info": {
     "singularName": "prospect",
     "pluralName": "prospects",
-    "displayName": "Prospect"
+    "displayName": "Prospect",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,7 +19,8 @@
       "type": "string"
     },
     "email": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "description": {
       "type": "text"

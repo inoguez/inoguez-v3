@@ -1109,6 +1109,7 @@ export interface ApiProspectProspect extends Schema.CollectionType {
     singularName: 'prospect';
     pluralName: 'prospects';
     displayName: 'Prospect';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1116,7 +1117,7 @@ export interface ApiProspectProspect extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     lastName: Attribute.String;
-    email: Attribute.String;
+    email: Attribute.String & Attribute.Unique;
     description: Attribute.Text;
     typeService: Attribute.String;
     createdAt: Attribute.DateTime;

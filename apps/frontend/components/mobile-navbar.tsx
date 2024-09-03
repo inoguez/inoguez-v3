@@ -6,6 +6,7 @@ import {
   LuBookMarked,
   LuBriefcase,
   LuChevronsLeftRight,
+  LuContact2,
   LuDribbble,
   LuGithub,
   LuHome,
@@ -17,6 +18,8 @@ import {
 } from 'react-icons/lu';
 import { ApiNavigationNavigation } from '@inoguez/strapi-types/ContentTypes';
 import InoguezLogo from './inoguez-logo';
+import { useLanguage } from '@/app/providers/LanguageProvider';
+import Link from 'next/link';
 
 export default function MobileNavbar({
   navigation,
@@ -25,7 +28,17 @@ export default function MobileNavbar({
   navigation: ApiNavigationNavigation[];
   className?: string;
 }) {
+  const NAVIGATION_ICONS = {
+    home: LuHome,
+    about: LuBookMarked,
+    work: LuBriefcase,
+    services: LuWand,
+    blog: LuLayers,
+    contact: LuContact2,
+  };
   console.log(navigation, 'xdxd');
+  const { language, setLanguage } = useLanguage();
+
   return (
     <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger className={cn(className)} asChild>
@@ -54,30 +67,25 @@ export default function MobileNavbar({
             </Drawer.Close>
           </div>
           <div className='grid gap-6 place-content-center flex-1 text-xl text-foreground'>
-            <a href='' className='flex items-center gap-2'>
-              <LuHome />
-              <span>Home</span>
-            </a>
-            <a href='' className='flex items-center gap-2'>
-              <LuBookMarked />
-              About
-            </a>
-            <a href='' className='flex items-center gap-2'>
-              <LuBriefcase />
-              Portfolio
-            </a>
-            <a href='' className='flex items-center gap-2'>
-              <LuWand />
-              Services
-            </a>
-            <a href='' className='flex items-center gap-2'>
-              <LuLayers />
-              Blog
-            </a>
-            <a href='' className='flex items-center gap-2'>
-              <LuChevronsLeftRight />
-              Repositories
-            </a>
+            {navigation?.map((item, index) => {
+              const slug = item.attributes
+                .slug as unknown as keyof typeof NAVIGATION_ICONS;
+              const Icon = NAVIGATION_ICONS[slug] || NAVIGATION_ICONS['home'];
+              const url = item?.attributes?.slug
+                ? `${item?.attributes?.slug}`
+                : `/`;
+              console.log(url);
+              return (
+                <Link
+                  href={url}
+                  key={index}
+                  className='flex items-center gap-2'
+                >
+                  <Icon />
+                  {String(item?.attributes?.title)}
+                </Link>
+              );
+            })}
           </div>
           <div className='flex justify-evenly text-3xl px-4 py-12 text-foreground'>
             <a href=''>

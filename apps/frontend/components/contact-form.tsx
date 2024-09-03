@@ -1,5 +1,10 @@
 'use client';
 import {
+  postOnBoardMessage,
+  PostOnBoardMessage,
+  sendOnBoardEmail,
+} from '@/app/actions';
+import {
   ApiContactContact,
   ApiWhatToBuildWhatToBuild,
 } from '@inoguez/strapi-types/ContentTypes';
@@ -9,10 +14,26 @@ import {
   Button,
   Input,
 } from '@nextui-org/react';
-import { useForm } from '@tanstack/react-form';
+import { FieldApi, useForm } from '@tanstack/react-form';
 import { useSearchParams } from 'next/navigation';
 import React, { useMemo } from 'react';
+import { zodValidator } from '@tanstack/zod-form-adapter';
 
+import { z } from 'zod';
+import { CircularProgress } from '@nextui-org/progress';
+
+import { Toaster, toast } from 'sonner';
+
+function isValid(field: FieldApi<any, any, any, any>): boolean {
+  return field.state.meta.isTouched && field.state.meta.errors.length > 0;
+}
+function FieldInfo(field: FieldApi<any, any, any, any>) {
+  return field.state.meta.isTouched && field.state.meta.errors.length
+    ? field.state.meta.errors.join(',')
+    : field.state.meta.isValidating
+    ? 'Validating...'
+    : '';
+}
 export default function ContactForm({
   contactInfo,
   whatToBuild,
@@ -20,6 +41,11 @@ export default function ContactForm({
   contactInfo: ApiContactContact;
   whatToBuild: ApiWhatToBuildWhatToBuild[];
 }) {
+  function getFormData(object: any) {
+    const formData = new FormData();
+    Object.keys(object).forEach((key) => formData.append(key, object[key]));
+    return formData;
+  }
   console.log(contactInfo);
   console.log(whatToBuild);
   const form = useForm({
@@ -28,12 +54,22 @@ export default function ContactForm({
       lastName: '',
       email: '',
       typeOfService: '',
-      moreInfo: '',
+      description: '',
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      console.log(value);
+      const { id, error } = await postOnBoardMessage(getFormData(value));
+      const response = await sendOnBoardEmail(getFormData(value));
+      console.log(id);
+      console.log(response);
+      const success = id || response?.id;
+      toast.success(
+        success
+          ? 'Form sent successfully'
+          : '[' + error?.details?.errors?.[0]?.path?.[0] + '] ' + error?.message
+      );
     },
+    validatorAdapter: zodValidator(),
   });
 
   const title = String(contactInfo?.attributes?.title);
@@ -58,6 +94,7 @@ export default function ContactForm({
       }}
       className='max-w-md mx-auto border-[1px] border-foreground p-4 rounded-3xl flex flex-col gap-6'
     >
+      <Toaster richColors toastOptions={{ className: 'rounded-3xl' }} />
       <img
         src={process.env.NEXT_PUBLIC_STRAPI_URL + img?.data?.attributes?.url}
         alt=''
@@ -71,13 +108,29 @@ export default function ContactForm({
         />
       </div>
       <div className='flex flex-col gap-4'>
-        <form.Field name='name'>
+        <form.Field
+          name='name'
+          validators={{
+            onChange: z.string().min(3, 'Name must be at least 3 characters'),
+            onChangeAsyncDebounceMs: 500,
+            onChangeAsync: z.string().refine(
+              async (value) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return !value.includes('error');
+              },
+              {
+                message: "No 'error' allowed in name",
+              }
+            ),
+          }}
+        >
           {(field) => (
             <Input
               size='md'
               radius='full'
               variant='bordered'
               label={'Name'}
+              isRequired
               classNames={{
                 label:
                   'text-foreground/50 group-data-[filled-within=true]:text-foreground',
@@ -88,16 +141,36 @@ export default function ContactForm({
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
+              isInvalid={isValid(field)}
+              errorMessage={FieldInfo(field)}
             />
           )}
         </form.Field>
-        <form.Field name='lastName'>
+        <form.Field
+          name='lastName'
+          validators={{
+            onChange: z
+              .string()
+              .min(3, 'Last Name must be at least 3 characters'),
+            onChangeAsyncDebounceMs: 500,
+            onChangeAsync: z.string().refine(
+              async (value) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return !value.includes('error');
+              },
+              {
+                message: "No 'error' allowed in name",
+              }
+            ),
+          }}
+        >
           {(field) => (
             <Input
               size='md'
               radius='full'
               variant='bordered'
               label={'Last Name'}
+              isRequired
               classNames={{
                 label:
                   'text-foreground/50 group-data-[filled-within=true]:text-foreground',
@@ -108,15 +181,33 @@ export default function ContactForm({
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
+              isInvalid={isValid(field)}
+              errorMessage={FieldInfo(field)}
             />
           )}
         </form.Field>
-        <form.Field name='email'>
+        <form.Field
+          name='email'
+          validators={{
+            onChange: z.string().email('Must be a valid email'),
+            onChangeAsyncDebounceMs: 500,
+            onChangeAsync: z.string().refine(
+              async (value) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return !value.includes('error');
+              },
+              {
+                message: "No 'error' allowed in first name",
+              }
+            ),
+          }}
+        >
           {(field) => (
             <Input
               size='md'
               radius='full'
               variant='bordered'
+              isRequired
               label={'Email'}
               classNames={{
                 label:
@@ -130,10 +221,27 @@ export default function ContactForm({
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
+              isInvalid={isValid(field)}
+              errorMessage={FieldInfo(field)}
             />
           )}
         </form.Field>
-        <form.Field name='typeOfService'>
+        <form.Field
+          name='typeOfService'
+          validators={{
+            onChange: z.string().min(1, 'You must select a type of service'),
+            onChangeAsyncDebounceMs: 500,
+            onChangeAsync: z.string().refine(
+              async (value) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return !value.includes('error');
+              },
+              {
+                message: "No 'error' allowed in name",
+              }
+            ),
+          }}
+        >
           {(field) => (
             // <Input
             //   size='md'
@@ -155,9 +263,12 @@ export default function ContactForm({
               size='md'
               label={'Service'}
               defaultItems={reducedData}
-              onValueChange={(e) => {}}
+              onValueChange={(e) => field.handleChange(e)}
+              name={field.name}
+              value={field.state.value}
+              isRequired
               // placeholder='Search an animal'
-              defaultSelectedKey='cat'
+              // defaultSelectedKey='cat'
               classNames={{
                 base: 'w-full text-foreground',
                 listboxWrapper: 'max-h-[320px] text-foreground',
@@ -200,6 +311,8 @@ export default function ContactForm({
               clearButtonProps={{ className: 'text-foreground' }}
               radius='full'
               variant='bordered'
+              isInvalid={isValid(field)}
+              errorMessage={FieldInfo(field)}
             >
               {(item) => (
                 <AutocompleteItem key={String(item?.value)}>
@@ -209,7 +322,27 @@ export default function ContactForm({
             </Autocomplete>
           )}
         </form.Field>
-        <form.Field name='moreInfo'>
+        <form.Field
+          name='description'
+          validators={{
+            onChange: z
+              .string()
+              .min(
+                20,
+                'You must enter a description with at least 20 characters'
+              ),
+            onChangeAsyncDebounceMs: 500,
+            onChangeAsync: z.string().refine(
+              async (value) => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return !value.includes('error');
+              },
+              {
+                message: "No 'error' allowed in name",
+              }
+            ),
+          }}
+        >
           {(field) => (
             <Input
               size='md'
@@ -226,6 +359,8 @@ export default function ContactForm({
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
+              isInvalid={isValid(field)}
+              errorMessage={FieldInfo(field)}
             />
           )}
         </form.Field>
@@ -239,7 +374,7 @@ export default function ContactForm({
             disabled={!canSubmit}
             className='rounded-full p-6 w-full'
           >
-            {isSubmitting ? '...' : 'Submit'}
+            {isSubmitting ? <CircularProgress /> : 'Submit'}
           </Button>
         )}
       </form.Subscribe>
