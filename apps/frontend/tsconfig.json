@@ -20,14 +20,17 @@
     "paths": {
       "@/*": ["./*"],
       "@inoguez/strapi-types/*": ["../backend/types/generated/*"]
-    }
+    },
+    "baseUrl": ".",
+    "rootDirs": [".", "../backend"]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/types/app/providers/LanguageProvider.tsx"
+    ".next/types/app/providers/AppProvider.tsx",
+    "../backend/types/generated/**/*.ts" // Añadir esta línea
   ],
   "exclude": ["node_modules"]
 }
