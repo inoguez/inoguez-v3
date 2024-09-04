@@ -4,7 +4,7 @@ import fetchApi from '@/libs/strapi';
 import {
   ApiContactContact,
   ApiWhatToBuildWhatToBuild,
-} from '@inoguez/strapi-types/ContentTypes';
+} from '@inoguez/strapi-types/generated/contentTypes';
 import ContactForm from '@/components/contact-form';
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));

@@ -1,4 +1,4 @@
-import { ApiCompetitiveEdgeCompetitiveEdge } from '@inoguez/strapi-types/ContentTypes';
+import { ApiCompetitiveEdgeCompetitiveEdge } from '@inoguez/strapi-types/generated/contentTypes';
 import React from 'react';
 import { HiOutlineCubeTransparent } from 'react-icons/hi2';
 import { LuBrainCircuit } from 'react-icons/lu';

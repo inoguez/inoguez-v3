@@ -16,7 +16,6 @@ import {
   LuWand,
   LuX,
 } from 'react-icons/lu';
-import { ApiNavigationNavigation } from '@inoguez/strapi-types/ContentTypes';
 import InoguezLogo from './inoguez-logo';
 import Link from 'next/link';
 import { useAppContext } from '@/app/providers/AppProvider';

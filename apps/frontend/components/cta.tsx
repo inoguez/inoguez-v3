@@ -1,5 +1,5 @@
 'use client';
-import { ApiWhatToBuildWhatToBuild } from '@inoguez/strapi-types/ContentTypes';
+import { ApiWhatToBuildWhatToBuild } from '@inoguez/strapi-types/generated/contentTypes';
 import {
   Autocomplete,
   AutocompleteSection,

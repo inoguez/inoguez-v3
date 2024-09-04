@@ -4,7 +4,7 @@ import { type Locale } from '@/i18n-config';
 import {
   ApiNavigationNavigation,
   ApiSocialSocial,
-} from '@inoguez/strapi-types/ContentTypes';
+} from '@inoguez/strapi-types/generated/contentTypes';
 
 type AppContextType = {
   language: Locale;

@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useState } from 'react';
-import { useLenis } from 'lenis/react';
+import { useLenis } from '@/libs/lenis';
 import InoguezLogo from './inoguez-logo';
 import MobileNavbar from './mobile-navbar';
 import { cn } from '@nextui-org/react';
@@ -11,7 +11,7 @@ export default function Header() {
     setBlur(scroll > BLUR_THRESHOLD);
   }, []);
 
-  useLenis(({ scroll }) => {
+  useLenis(({ scroll }: { scroll: number }) => {
     handleScroll(scroll);
   });
 

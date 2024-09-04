@@ -3,7 +3,7 @@ import { postOnBoardMessage, sendOnBoardEmail } from '@/app/actions';
 import {
   ApiContactContact,
   ApiWhatToBuildWhatToBuild,
-} from '@inoguez/strapi-types/ContentTypes';
+} from '@inoguez/strapi-types/generated/contentTypes';
 import {
   Autocomplete,
   AutocompleteItem,

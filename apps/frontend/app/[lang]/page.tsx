@@ -10,7 +10,7 @@ import {
   ApiHomeHome,
   ApiWhatToBuildWhatToBuild,
   ApiWorkWork,
-} from '@inoguez/strapi-types/ContentTypes';
+} from '@inoguez/strapi-types/generated/contentTypes';
 import { Button } from '@nextui-org/react';
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));

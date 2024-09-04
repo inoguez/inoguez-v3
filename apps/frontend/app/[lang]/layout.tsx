@@ -3,18 +3,15 @@ import localfont from 'next/font/local';
 import { Providers } from '../providers';
 import InoguezLogo from '@/components/inoguez-logo';
 import '../globals.css';
-import MobileNavbar from '@/components/mobile-navbar';
 import { cn } from '@nextui-org/react';
-import { LuDribbble, LuGithub, LuLinkedin } from 'react-icons/lu';
-import { SiAstro } from 'react-icons/si';
 import { i18n, type Locale } from '@/i18n-config';
 import fetchApi from '@/libs/strapi';
 const myFont = localfont({ src: '../../fonts/Nohemi-VF.ttf' });
 import {
   ApiNavigationNavigation,
   ApiSocialSocial,
-} from '@inoguez/strapi-types/ContentTypes';
-import { ReactLenis, useLenis } from '@/libs/lenis';
+} from '@inoguez/strapi-types/generated/contentTypes';
+import { ReactLenis } from '@/libs/lenis';
 import Header from '@/components/header';
 
 import { BsCheckLg } from 'react-icons/bs';

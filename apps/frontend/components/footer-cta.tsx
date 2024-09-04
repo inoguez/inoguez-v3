@@ -1,5 +1,5 @@
 'use client';
-import { ApiHomeHome } from '@inoguez/strapi-types/ContentTypes';
+import { ApiHomeHome } from '@inoguez/strapi-types/generated/contentTypes';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
