@@ -21,6 +21,7 @@ import { CircularProgress } from '@nextui-org/progress';
 
 import { Toaster, toast } from 'sonner';
 import { PopulatedImage } from '@/libs/utils';
+import Image from 'next/image';
 
 function isValid(field: FieldApi<any, any, any, any>): boolean {
   return field.state.meta.isTouched && field.state.meta.errors.length > 0;
@@ -90,14 +91,18 @@ export default function ContactForm({
       className='max-w-md mx-auto border-[1px] border-foreground p-4 rounded-3xl flex flex-col gap-6'
     >
       <Toaster richColors toastOptions={{ className: 'rounded-3xl' }} />
-      <img
-        src={
-          process.env.NEXT_PUBLIC_STRAPI_URL +
-          populatedImg?.data?.attributes?.url
-        }
-        alt=''
-        className='aspect-video rounded-3xl overflow-hidden'
-      />
+      <div className='relative aspect-video  overflow-hidden'>
+        <Image
+          fill
+          src={
+            process.env.NEXT_PUBLIC_STRAPI_URL +
+            populatedImg?.data?.attributes?.url
+          }
+          alt=''
+          className=' rounded-3xl overflow-hidden'
+        />
+      </div>
+
       <div>
         <h1 className='text-xl font-bold'>{title}</h1>
         <span

@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import Status from './status';
+import Image from 'next/image';
 
 export default function FeaturedWork({ item }) {
   console.log(item);
   return (
     <div className='relative p-4 border-[1px] border-foreground  grid rounded-3xl gap-4 text-left'>
-      <img
+      <Image
+        fill
         className='sticky rounded-2xl '
         src={
           process.env.NEXT_PUBLIC_STRAPI_URL +
