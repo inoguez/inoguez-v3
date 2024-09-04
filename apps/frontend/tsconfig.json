@@ -19,10 +19,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@inoguez/strapi-types/*": ["../backend/types/generated/*"]
+      "@inoguez/strapi-types/*": ["./types/strapi/*"]
     },
-    "baseUrl": ".",
-    "rootDirs": [".", "../backend"]
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",
@@ -30,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/types/app/providers/AppProvider.tsx",
-    "../backend/types/generated/**/*.ts" // Añadir esta línea
+    "./types/strapi/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
