@@ -1,9 +1,5 @@
 'use client';
-import {
-  postOnBoardMessage,
-  PostOnBoardMessage,
-  sendOnBoardEmail,
-} from '@/app/actions';
+import { postOnBoardMessage, sendOnBoardEmail } from '@/app/actions';
 import {
   ApiContactContact,
   ApiWhatToBuildWhatToBuild,
@@ -12,6 +8,7 @@ import {
   Autocomplete,
   AutocompleteItem,
   Button,
+  cn,
   Input,
 } from '@nextui-org/react';
 import { FieldApi, useForm } from '@tanstack/react-form';
@@ -23,6 +20,7 @@ import { z } from 'zod';
 import { CircularProgress } from '@nextui-org/progress';
 
 import { Toaster, toast } from 'sonner';
+import { PopulatedImage } from '@/libs/utils';
 
 function isValid(field: FieldApi<any, any, any, any>): boolean {
   return field.state.meta.isTouched && field.state.meta.errors.length > 0;
@@ -46,22 +44,20 @@ export default function ContactForm({
     Object.keys(object).forEach((key) => formData.append(key, object[key]));
     return formData;
   }
-  console.log(contactInfo);
-  console.log(whatToBuild);
+  const searchParams = useSearchParams();
+
   const form = useForm({
     defaultValues: {
       name: '',
       lastName: '',
       email: '',
-      typeOfService: '',
+      typeOfService: searchParams.get('service') ?? undefined,
       description: '',
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
       const { id, error } = await postOnBoardMessage(getFormData(value));
       const response = await sendOnBoardEmail(getFormData(value));
-      console.log(id);
-      console.log(response);
       const success = id || response?.id;
       toast.success(
         success
@@ -75,9 +71,6 @@ export default function ContactForm({
   const title = String(contactInfo?.attributes?.title);
   const desc = String(contactInfo?.attributes?.description);
   const img = contactInfo?.attributes?.contactImage;
-  console.log(img);
-  const searchParams = useSearchParams();
-  console.log(searchParams.get('service'));
 
   const reducedData = useMemo(() => {
     return whatToBuild?.map((item) => ({
@@ -85,6 +78,8 @@ export default function ContactForm({
       value: item?.attributes?.value,
     }));
   }, [whatToBuild]);
+
+  const populatedImg = img as unknown as PopulatedImage;
   return (
     <form
       onSubmit={(e) => {
@@ -96,7 +91,10 @@ export default function ContactForm({
     >
       <Toaster richColors toastOptions={{ className: 'rounded-3xl' }} />
       <img
-        src={process.env.NEXT_PUBLIC_STRAPI_URL + img?.data?.attributes?.url}
+        src={
+          process.env.NEXT_PUBLIC_STRAPI_URL +
+          populatedImg?.data?.attributes?.url
+        }
         alt=''
         className='aspect-video rounded-3xl overflow-hidden'
       />
@@ -263,7 +261,8 @@ export default function ContactForm({
               size='md'
               label={'Service'}
               defaultItems={reducedData}
-              onValueChange={(e) => field.handleChange(e)}
+              onSelectionChange={(e) => field.handleChange(e as string)}
+              selectedKey={field.state.value}
               name={field.name}
               value={field.state.value}
               isRequired
@@ -349,6 +348,7 @@ export default function ContactForm({
               radius='full'
               variant='bordered'
               label={'Tell us about your vision'}
+              isRequired
               classNames={{
                 label:
                   'text-foreground/50 group-data-[filled-within=true]:text-foreground',
@@ -372,7 +372,9 @@ export default function ContactForm({
           <Button
             type='submit'
             disabled={!canSubmit}
-            className='rounded-full p-6 w-full'
+            className={cn('rounded-full p-6 w-full', {
+              'bg-foreground/50': !canSubmit,
+            })}
           >
             {isSubmitting ? <CircularProgress /> : 'Submit'}
           </Button>

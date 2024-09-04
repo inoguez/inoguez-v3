@@ -1138,6 +1138,58 @@ export interface ApiProspectProspect extends Schema.CollectionType {
   };
 }
 
+export interface ApiSocialSocial extends Schema.CollectionType {
+  collectionName: 'socials';
+  info: {
+    singularName: 'social';
+    pluralName: 'socials';
+    displayName: 'Social';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    url: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::social.social',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::social.social',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::social.social',
+      'oneToMany',
+      'api::social.social'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiTagTag extends Schema.CollectionType {
   collectionName: 'tags';
   info: {
@@ -1392,6 +1444,7 @@ declare module '@strapi/types' {
       'api::home.home': ApiHomeHome;
       'api::navigation.navigation': ApiNavigationNavigation;
       'api::prospect.prospect': ApiProspectProspect;
+      'api::social.social': ApiSocialSocial;
       'api::tag.tag': ApiTagTag;
       'api::tecnology.tecnology': ApiTecnologyTecnology;
       'api::what-to-build.what-to-build': ApiWhatToBuildWhatToBuild;

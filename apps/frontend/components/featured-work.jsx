@@ -13,9 +13,14 @@ export default function FeaturedWork({ item }) {
         }
         alt=''
       />
-      <Link href='#' className='text-xl font-semibold'>
-        {String(item.attributes.title)}
-      </Link>
+      <div>
+        <Link
+          href='#'
+          className='text-xl font-semibold link link--kale !text-foreground'
+        >
+          {String(item.attributes.title)}
+        </Link>
+      </div>
       <Status status={String(item.attributes.status)} />
 
       {/* //Tecnologias */}

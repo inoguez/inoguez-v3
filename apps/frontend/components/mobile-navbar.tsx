@@ -1,6 +1,6 @@
 'use client';
 import { Drawer } from 'vaul';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, cn } from '@nextui-org/react';
 import {
   LuBookMarked,
@@ -18,16 +18,10 @@ import {
 } from 'react-icons/lu';
 import { ApiNavigationNavigation } from '@inoguez/strapi-types/ContentTypes';
 import InoguezLogo from './inoguez-logo';
-import { useLanguage } from '@/app/providers/LanguageProvider';
 import Link from 'next/link';
+import { useAppContext } from '@/app/providers/AppProvider';
 
-export default function MobileNavbar({
-  navigation,
-  className,
-}: {
-  navigation: ApiNavigationNavigation[];
-  className?: string;
-}) {
+export default function MobileNavbar({ className }: { className?: string }) {
   const NAVIGATION_ICONS = {
     home: LuHome,
     about: LuBookMarked,
@@ -36,11 +30,10 @@ export default function MobileNavbar({
     blog: LuLayers,
     contact: LuContact2,
   };
-  console.log(navigation, 'xdxd');
-  const { language, setLanguage } = useLanguage();
-
+  const { language, setLanguage, navigation } = useAppContext();
+  const [open, setOpen] = useState(false);
   return (
-    <Drawer.Root shouldScaleBackground>
+    <Drawer.Root shouldScaleBackground open={open} onOpenChange={setOpen}>
       <Drawer.Trigger className={cn(className)} asChild>
         <Button variant='solid' className='  aspect-square !p-0 '>
           <LuMenu />
@@ -76,14 +69,16 @@ export default function MobileNavbar({
                 : `/`;
               console.log(url);
               return (
-                <Link
-                  href={url}
-                  key={index}
-                  className='flex items-center gap-2'
-                >
-                  <Icon />
-                  {String(item?.attributes?.title)}
-                </Link>
+                <div key={index}>
+                  <Link
+                    onClick={() => setOpen(false)}
+                    href={url}
+                    className='flex items-center gap-2 link link--kale !text-foreground'
+                  >
+                    <Icon />
+                    {String(item?.attributes?.title)}
+                  </Link>
+                </div>
               );
             })}
           </div>

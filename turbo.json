@@ -6,6 +6,9 @@
     },
     "start": {
       "cache": false
+    },
+    "build": {
+      "cache": false
     }
   }
 }

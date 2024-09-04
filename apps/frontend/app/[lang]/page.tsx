@@ -1,6 +1,7 @@
 import CompetitiveEdge from '@/components/competitive-edge';
 import Cta from '@/components/cta';
 import FeaturedWork from '@/components/featured-work';
+import FooterCta from '@/components/footer-cta';
 import Status from '@/components/status';
 import { i18n, Locale } from '@/i18n-config';
 import fetchApi from '@/libs/strapi';
@@ -126,9 +127,7 @@ export default async function Home({
               __html: String(layoutInfo?.attributes?.h3Footer),
             }}
           />
-          <Button className='rounded-full p-5 w-full'>
-            {String(layoutInfo?.attributes?.ctaButtonFooterText)}
-          </Button>
+          <FooterCta layoutInfo={layoutInfo} />
         </div>
       </div>
     </main>

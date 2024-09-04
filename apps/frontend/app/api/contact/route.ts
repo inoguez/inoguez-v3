@@ -5,10 +5,10 @@ export async function POST(req: Request) {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/prospects`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(sendData),
       }

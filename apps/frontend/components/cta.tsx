@@ -6,8 +6,9 @@ import {
   AutocompleteItem,
 } from '@nextui-org/autocomplete';
 import { Button } from '@nextui-org/react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 export default function Cta({
   label,
@@ -23,9 +24,20 @@ export default function Cta({
   value?: string;
 }) {
   const [valor, setValor] = useState('');
+
   console.log(valor);
-  console.log(whatToBuild);
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
   const reducedData = useMemo(() => {
     return whatToBuild?.map((item) => ({
       label: item?.attributes?.label,
@@ -34,8 +46,11 @@ export default function Cta({
   }, [whatToBuild]);
 
   if (!whatToBuild) return;
+
   function handleClick() {
-    router.push(`/contact?service=${valor}`);
+    router.push(
+      `${pathname}/contact` + '?' + createQueryString('service', valor)
+    );
   }
 
   return (

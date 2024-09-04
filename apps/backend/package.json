@@ -31,5 +31,8 @@
   },
   "strapi": {
     "uuid": "40d40c15-c5bb-4638-ae95-731b6db9e3d7"
+  },
+  "devDependencies": {
+    "turbo": "^2.1.1"
   }
 }
