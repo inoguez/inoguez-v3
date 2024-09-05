@@ -11,6 +11,7 @@
     "build": "strapi build",
     "deploy": "strapi deploy",
     "dev": "strapi develop",
+    "importData": "strapi import --file export_20240905113726.tar.gz.enc --key Patineta12",
     "start": "strapi start",
     "strapi": "strapi"
   },
@@ -25,14 +26,14 @@
     "react-router-dom": "5.3.4",
     "styled-components": "5.3.3"
   },
+  "devDependencies": {
+    "turbo": "^2.1.1"
+  },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
     "uuid": "40d40c15-c5bb-4638-ae95-731b6db9e3d7"
-  },
-  "devDependencies": {
-    "turbo": "^2.1.1"
   }
 }

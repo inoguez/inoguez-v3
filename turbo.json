@@ -16,6 +16,9 @@
     "JWT_SECRET"
   ],
   "tasks": {
+    "importData": {
+      "cache": false
+    },
     "dev": {
       "cache": false
     },
