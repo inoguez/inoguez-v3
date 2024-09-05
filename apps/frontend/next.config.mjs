@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: '127.0.0.1',
         port: '1338',
       },
+      {
+        protocol: 'https',
+        hostname: 'inoguez-v3-production.up.railway.app',
+        // port: '1338',
+      },
     ],
   },
 };
