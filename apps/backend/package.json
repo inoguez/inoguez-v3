@@ -11,7 +11,6 @@
     "build": "strapi build",
     "deploy": "strapi deploy",
     "dev": "strapi develop",
-    "importData": "strapi import --file export_20240905113726.tar.gz.enc --key Patineta12",
     "start": "strapi start",
     "strapi": "strapi"
   },
