@@ -96,7 +96,7 @@ export default function ContactForm({
         {url && (
           <Image
             fill
-            src={process.env.NEXT_PUBLIC_STRAPI_URL + url}
+            src={url}
             alt=''
             className=' rounded-3xl overflow-hidden'
           />

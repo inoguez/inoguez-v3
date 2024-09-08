@@ -5,17 +5,10 @@ import Image from 'next/image';
 export default function FeaturedWork({ item }) {
   console.log(item);
   console.log(item.attributes.showcase.data?.[0].attributes.url);
-  const path = item.attributes.showcase.data?.[0].attributes.url;
+  const url = item.attributes.showcase.data?.[0].attributes.url;
   return (
     <div className='relative p-4 border-[1px] border-foreground  grid rounded-3xl gap-4 text-left'>
-      {path && (
-        <Image
-          fill
-          className='sticky rounded-2xl '
-          src={process.env.NEXT_PUBLIC_STRAPI_URL + path}
-          alt=''
-        />
-      )}
+      {url && <Image fill className='sticky rounded-2xl ' src={url} alt='' />}
       <div>
         <Link
           href='#'
