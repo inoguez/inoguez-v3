@@ -39,7 +39,7 @@ async function getFeaturedWork(lang: string) {
       'fields[1]': 'content',
       'fields[2]': 'status',
       'fields[3]': 'description',
-      'populate[showcase][fields][0]': 'url',
+      'populate[portrait][fields][0]': 'url',
       'filters[featured][$eq]': 'true',
       'populate[technologies][fields][0]': 'name',
     },

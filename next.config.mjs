@@ -5,11 +5,17 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: '1338',
+        port: '1337',
       },
       {
         protocol: 'https',
-        hostname: 'strapi-production-1be7.up.railway.app',
+        hostname: 'strapi.inoguez.com',
+        // port: '1338',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
         // port: '1338',
       },
     ],

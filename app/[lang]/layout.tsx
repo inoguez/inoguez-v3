@@ -88,7 +88,8 @@ export default async function RootLayout({
                   {navigation?.map((item, index) => {
                     const url = item?.attributes?.slug
                       ? `${params.lang}/${item?.attributes?.slug}`
-                      : `${params.lang}/`;
+                      : `/`;
+                    console.log(url);
                     return (
                       <div key={index} className=''>
                         <Link className='link link--kale font-light' href={url}>

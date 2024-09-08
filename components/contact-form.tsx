@@ -97,7 +97,7 @@ export default function ContactForm({
           <Image
             fill
             src={url}
-            alt=''
+            alt='Abstract image for Contact form'
             className=' rounded-3xl overflow-hidden'
           />
         )}
