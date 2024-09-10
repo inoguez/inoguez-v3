@@ -1,8 +1,8 @@
+import '../globals.css';
 import type { Metadata } from 'next';
 import localfont from 'next/font/local';
 import { Providers } from '../providers';
 import InoguezLogo from '@/components/inoguez-logo';
-import '../globals.css';
 import { cn } from '@nextui-org/react';
 import { i18n, type Locale } from '@/i18n-config';
 import fetchApi from '@/libs/strapi';
