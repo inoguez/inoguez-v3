@@ -54,7 +54,7 @@ export default function Cta({
   }
 
   return (
-    <div className='flex w-full flex-wrap md:flex-nowrap gap-4'>
+    <div className='flex w-full flex-col md:flex-row  gap-4'>
       <Autocomplete
         label={label}
         defaultItems={reducedData}

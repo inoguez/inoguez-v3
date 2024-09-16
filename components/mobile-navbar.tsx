@@ -42,13 +42,16 @@ export default function MobileNavbar({ className }: { className?: string }) {
         <Drawer.Overlay className='fixed inset-0 bg-black/40 ' />
         <Drawer.Content
           aria-describedby={undefined}
-          className='fixed inset-x-0 bottom-0 z-50 mt-24 flex p-6 flex-col rounded-t-[10px] border bg-background h-[95vh]'
+          className='fixed inset-x-0 bottom-0 z-50 mt-24 flex p-6 flex-col rounded-t-[10px] border bg-background h-[95dvh]'
         >
-          <div className='flex justify-between '>
+          <div className='relative flex justify-between items-start '>
             <Drawer.Title>
-              <InoguezLogo className='fill-foreground' />
+              <InoguezLogo logoClassName='fill-foreground' className='' />
             </Drawer.Title>
             {/* <DrawerDescription>This action cannot be undone.</DrawerDescription>  */}
+            <div className='absolute top-2 left-1/2 -translate-x-1/2 flex justify-center'>
+              <div className='bg-foreground rounded-full w-[20dvw] h-2'></div>
+            </div>
             <Drawer.Close asChild className='aspect-square !p-0 min-w-0'>
               <Button
                 variant='solid'
