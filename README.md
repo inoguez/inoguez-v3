@@ -1,6 +1,6 @@
-#iNoguez personal website
+# iNoguez personal website
 
-![UI] (https://cdn.dribbble.com/userupload/17067187/file/original-c9b64afebe476a290368e0b029fc7b95.png)
+![UI](https://cdn.dribbble.com/userupload/17067187/file/original-c9b64afebe476a290368e0b029fc7b95.png)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
